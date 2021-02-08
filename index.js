@@ -7,7 +7,7 @@ const connection = require('./helpers/db');
 const {
     v4: uuidv4
 } = require("uuid");
-const { createCustTable, roomTable } = require('./routes/table');
+const { createCustTable, roomTable, chargesTable, paymentsTable, booking } = require('./routes/table');
 
 fastify.get('/', async (request, reply) => {
     var response = {
@@ -24,6 +24,18 @@ fastify.get('/createCustTable',createCustTable);
 //room details
 fastify.get('/createRoomTable', roomTable)
 //end room details
+
+//charges details
+fastify.get('/createChargeTable', chargesTable)
+//end charges details
+
+//payements details
+fastify.get('/createPayTable', paymentsTable)
+//end payements details
+
+//booking details
+fastify.get('/createBookTable', booking)
+//end booking details
   
 fastify.listen(3000, (err, address) => {
     if (err) throw err
