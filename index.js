@@ -4,9 +4,7 @@ const fastify = require('fastify')({
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const connection = require('./helpers/db');
-const {
-    v4: uuidv4
-} = require("uuid");
+const { customerC, customerRA, customerR, customerU, customerD } = require('./routes/customer');
 const { createCustTable, roomTable, chargesTable, paymentsTable, booking } = require('./routes/table');
 
 fastify.get('/', async (request, reply) => {
@@ -19,6 +17,11 @@ fastify.get('/', async (request, reply) => {
 
 //customer details
 fastify.get('/createCustTable',createCustTable);
+fastify.get('/customer', customerRA);
+fastify.get('/customer/:customerId', customerR);
+fastify.post('/customer', customerC);
+fastify.put('/cutomer', customerU);
+fastify.delete('/customer/:customerId', customerD);
 //end of customer details
 
 //room details
