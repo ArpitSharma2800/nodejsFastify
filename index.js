@@ -1,10 +1,8 @@
 const fastify = require('fastify')({
     logger: true
   })
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const connection = require('./helpers/db');
 const { customerC, customerRA, customerR, customerU, customerD } = require('./routes/customer');
+const { roomC, roomA, roomT, room, roomD, roomU } = require('./routes/room');
 const { createCustTable, roomTable, chargesTable, paymentsTable, booking } = require('./routes/table');
 
 fastify.get('/', async (request, reply) => {
@@ -26,10 +24,16 @@ fastify.delete('/customer/:customerId', customerD);
 
 //room details
 fastify.get('/createRoomTable', roomTable)
+fastify.get('roomavailable', roomA);
+fastify.get('roomtaken', roomT);
+fastify.get('room',room);
+fastify.post('/room', roomC);
+fastify.put('/room', roomU);
+fastify.delete('/room/:roomId', roomD);
 //end room details
 
 //charges details
-fastify.get('/createChargeTable', chargesTable)
+fastify.get('/createChargeTable', chargesTable);
 //end charges details
 
 //payements details

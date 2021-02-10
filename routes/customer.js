@@ -2,6 +2,7 @@ const {
     v4: uuidv4
 } = require("uuid");
 const connection = require("../helpers/db");
+
 exports.customerC = async function(req,reply){
     const uuid = uuidv4()
     const query = 'INSERT INTO customer (customerId, name, aadharNo, email, phoneNo) VALUES ?'
