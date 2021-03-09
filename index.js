@@ -1,6 +1,18 @@
 const fastify = require('fastify')({
     logger: true
   })
+
+fastify.register(require('fastify-cors'), (instance) => { (req, cb) => {
+  let corsOptions;
+  if (/localhost/.test(origin)) {
+    corsOptions = { origin: false }
+  } else {
+    corsOptions = { origin: true }
+  }
+  callback(null, corsOptions)
+  }
+})
+const { chargesC, chargesU, chargesD } = require('./routes/charges');
 const { customerC, customerRA, customerR, customerU, customerD } = require('./routes/customer');
 const { roomC, roomA, roomT, room, roomD, roomU } = require('./routes/room');
 const { createCustTable, roomTable, chargesTable, paymentsTable, booking } = require('./routes/table');
@@ -34,6 +46,9 @@ fastify.delete('/room/:roomId', roomD);
 
 //charges details
 fastify.get('/createChargeTable', chargesTable);
+fastify.post('/charges', chargesC);
+fastify.put('/charges', chargesU);
+fastify.delete('/charges/:chargeId', chargesD);
 //end charges details
 
 //payements details
